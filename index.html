@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="title" content="Humanoid Badminton: Learning Dynamic Racket Skills from Limited Human Motion Data">
+  <meta name="description" content="A three-stage hierarchical reinforcement learning framework for real-world humanoid badminton that learns dynamic racket skills from limited human motion data and demonstrates highly dynamic jump returns.">
+  <meta name="keywords" content="humanoid robot, badminton, athletic robotics, racket sports, reinforcement learning, motion imitation, latent skill learning, real-world robot deployment">
+  <meta name="author" content="Jingzhi Cui, Zhexiong Wang, Bangjie Xu, Pengyu Zhao, Youyuan Li, Zhi Su, Peng Ren, Mengdi Xu, Chao Yu, Yi Wu, Luyang Wang, Zhongyu Li">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Hong Kong Embodied AI Lab">
+  <meta property="og:title" content="Humanoid Badminton: Learning Dynamic Racket Skills from Limited Human Motion Data">
+  <meta property="og:description" content="A three-stage hierarchical reinforcement learning framework for real-world humanoid badminton, demonstrating multi-skill human-robot rallies with highly dynamic jump returns.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Humanoid Badminton: Learning Dynamic Racket Skills from Limited Human Motion Data">
+  <meta name="twitter:description" content="A three-stage hierarchical reinforcement learning framework for real-world humanoid badminton, demonstrating multi-skill human-robot rallies with highly dynamic jump returns.">
+  <meta name="citation_title" content="Humanoid Badminton: Learning Dynamic Racket Skills from Limited Human Motion Data">
+  <meta name="citation_author" content="Cui, Jingzhi">
+  <meta name="citation_author" content="Wang, Zhexiong">
+  <meta name="citation_author" content="Xu, Bangjie">
+  <meta name="citation_author" content="Zhao, Pengyu">
+  <meta name="citation_author" content="Li, Youyuan">
+  <meta name="citation_author" content="Su, Zhi">
+  <meta name="citation_author" content="Ren, Peng">
+  <meta name="citation_author" content="Xu, Mengdi">
+  <meta name="citation_author" content="Yu, Chao">
+  <meta name="citation_author" content="Wu, Yi">
+  <meta name="citation_author" content="Wang, Luyang">
+  <meta name="citation_author" content="Li, Zhongyu">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="msapplication-TileColor" content="#2563eb">
+
+  <title>Humanoid Badminton | Academic Research</title>
+
+  <link rel="icon" type="image/svg+xml" href="static/images/favicon.svg">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
+
+  <style>
+    .publication-title { line-height: 1.15; }
+    .project-section { padding-top: 3rem; padding-bottom: 3rem; }
+    .project-video {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0.5rem 1.5rem rgba(10, 10, 10, 0.12);
+      background: #000;
+    }
+    .pipeline-image, .ack-image {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0.5rem 1.5rem rgba(10, 10, 10, 0.08);
+    }
+    .caption {
+      margin-top: 0.85rem;
+      color: #4a4a4a;
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+    .skill-group {
+      height: 100%;
+      padding: 1.25rem;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 0.25rem 1rem rgba(10, 10, 10, 0.06);
+    }
+    .skill-group .title { margin-bottom: 1rem; }
+    .video-card { margin-bottom: 1rem; }
+    .video-card:last-child { margin-bottom: 0; }
+    .video-card p { margin-top: 0.35rem; font-size: 0.95rem; color: #555; }
+    .rally-video-card {
+      padding: 1.25rem;
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 0.25rem 1rem rgba(10, 10, 10, 0.06);
+      height: 100%;
+    }
+    .bibtex-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    @media screen and (max-width: 768px) {
+      .publication-title { font-size: 2.1rem !important; }
+      .project-section { padding-top: 2rem; padding-bottom: 2rem; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ScholarlyArticle",
+    "headline": "Humanoid Badminton: Learning Dynamic Racket Skills from Limited Human Motion Data",
+    "description": "A three-stage hierarchical reinforcement learning framework for real-world humanoid badminton with forehand, backhand, highly dynamic jump returns, and multi-skill human-robot rallies.",
+    "author": [
+      {"@type": "Person", "name": "Jingzhi Cui"},
+      {"@type": "Person", "name": "Zhexiong Wang"},
+      {"@type": "Person", "name": "Bangjie Xu"},
+      {"@type": "Person", "name": "Pengyu Zhao"},
+      {"@type": "Person", "name": "Youyuan Li"},
+      {"@type": "Person", "name": "Zhi Su"},
+      {"@type": "Person", "name": "Peng Ren"},
+      {"@type": "Person", "name": "Mengdi Xu"},
+      {"@type": "Person", "name": "Chao Yu"},
+      {"@type": "Person", "name": "Yi Wu"},
+      {"@type": "Person", "name": "Luyang Wang"},
+      {"@type": "Person", "name": "Zhongyu Li"}
+    ],
+    "keywords": ["humanoid robot", "badminton", "athletic robotics", "reinforcement learning", "latent skill learning"],
+    "isAccessibleForFree": true
+  }
+  </script>
+</head>
+
+<body>
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <main id="main-content">
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">Humanoid Badminton:<br>Learning Dynamic Racket Skills from Limited Human Motion Data</h1>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">Jingzhi Cui<sup>1,3</sup>,</span>
+                <span class="author-block">Zhexiong Wang<sup>3,5</sup>,</span>
+                <span class="author-block">Bangjie Xu<sup>1</sup>,</span>
+                <span class="author-block">Pengyu Zhao<sup>4</sup>,</span>
+                <span class="author-block">Youyuan Li<sup>1</sup>,</span>
+                <span class="author-block">Zhi Su<sup>1</sup>,</span>
+                <span class="author-block">Peng Ren<sup>6</sup>,</span>
+                <span class="author-block">Mengdi Xu<sup>1</sup>,</span>
+                <span class="author-block">Chao Yu<sup>1</sup>,</span>
+                <span class="author-block">Yi Wu<sup>1</sup>,</span>
+                <span class="author-block">Luyang Wang<sup>4</sup>,</span>
+                <span class="author-block">Zhongyu Li<sup>2,3</sup></span>
+              </div>
+
+              <div class="is-size-6 publication-authors" style="margin-top: 0.75rem;">
+                <span class="author-block"><sup>1</sup>Tsinghua University</span>&nbsp;&nbsp;
+                <span class="author-block"><sup>2</sup>The Chinese University of Hong Kong</span>&nbsp;&nbsp;
+                <span class="author-block"><sup>3</sup>Hong Kong Embodied AI Lab</span><br>
+                <span class="author-block"><sup>4</sup>Beijing University of Civil Engineering and Architecture</span>&nbsp;&nbsp;
+                <span class="author-block"><sup>5</sup>Zhejiang University</span>&nbsp;&nbsp;
+                <span class="author-block"><sup>6</sup>DeepCybo</span>
+              </div>
+
+              <p class="is-size-5 has-text-centered"
+                 style="margin: 1rem 0 0.5rem;">
+                <strong>Accepted at CoRL 2026</strong>
+              </p>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <span class="link-block">
+                    <a href="static/pdfs/paper.pdf" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                      <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                      <span>Paper</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero teaser">
+      <div class="container is-max-desktop">
+        <div class="hero-body">
+          <video class="project-video" id="main-demo-video" autoplay controls muted loop playsinline preload="metadata">
+            <source src="static/videos/main_demo.mp4" type="video/mp4">
+          </video>
+          <h2 class="subtitle has-text-centered caption">
+            Real-world demonstrations of forehand and backhand returns, highly dynamic jump returns, and sustained multi-skill human-robot rallies.
+          </h2>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light project-section" id="overview">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Method Overview</h2>
+            <img class="pipeline-image" src="static/images/pipeline.png" alt="Overview of the humanoid badminton learning framework" loading="lazy">
+            <p class="caption has-text-centered">
+              Overview of the three-stage hierarchical reinforcement learning framework. Task-randomized motion augmentation expands sparse annotated hitting events into executable target-conditioned stroke variations, forming a continuous latent skill space. A high-level planner then composes these skills online according to the observed shuttle state, while a context-conditioned adversarial regularizer encourages natural planner-level skill usage without compromising return performance.
+            </p>
+          </div>
+        </div>
+
+        <div class="columns is-centered has-text-centered" style="margin-top: 2rem;">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                High-speed racket sports provide a demanding testbed for humanoid robots, requiring time-critical decisions, precise striking, and dynamic whole-body coordination. In badminton, fast-changing shuttle trajectories require timely contact decisions, while successful returns demand precise racket pose and velocity within a brief contact window and across a broad three-dimensional striking workspace. Human motion data provide valuable priors for such athletic skills, but usable badminton references are limited and imperfect. Direct tracking provides insufficient executable variation for diverse shuttle conditions, while purely task-driven optimization may produce unnatural motion. To address these challenges, we present a three-stage hierarchical reinforcement learning framework for dynamic humanoid badminton. First, task-randomized motion augmentation expands sparse annotated hitting events into executable target-conditioned stroke variations, forming a continuous latent skill space. Second, a high-level planner outputs continuous latent skill codes to compose these skills online according to the observed shuttle state. Third, a context-conditioned adversarial regularizer encourages more natural planner-level skill usage while preserving return performance. When deployed on a real humanoid robot, our system achieves sustained multi-skill rallies with human players, including forehand, backhand, and highly dynamic jump returns. This is the first real-world humanoid racket-sport system to demonstrate multi-skill human-robot rallies including highly dynamic jump returns.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section project-section" id="skills">
+      <div class="container">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Skill Demonstrations</h2>
+            <p class="caption has-text-centered">
+              Real-world demonstrations of the learned forehand, backhand, and highly dynamic jump-return skills across multiple executions.
+            </p>
+          </div>
+        </div>
+
+        <div class="columns is-variable is-4" style="margin-top: 1rem;">
+          <div class="column is-one-third">
+            <div class="skill-group">
+              <h3 class="title is-4 has-text-centered">Forehand</h3>
+              <div class="video-card">
+                <video class="project-video" controls muted loop playsinline preload="metadata"><source src="static/videos/skills/forehand_1.mp4" type="video/mp4"></video>
+                <p class="has-text-centered">Forehand demo 1</p>
+              </div>
+              <div class="video-card">
+                <video class="project-video" controls muted loop playsinline preload="metadata"><source src="static/videos/skills/forehand_2.mp4" type="video/mp4"></video>
+                <p class="has-text-centered">Forehand demo 2</p>
+              </div>
+              <div class="video-card">
+                <video class="project-video" controls muted loop playsinline preload="metadata"><source src="static/videos/skills/forehand_3.mp4" type="video/mp4"></video>
+                <p class="has-text-centered">Forehand demo 3</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="skill-group">
+              <h3 class="title is-4 has-text-centered">Backhand</h3>
+              <div class="video-card">
+                <video class="project-video" controls muted loop playsinline preload="metadata"><source src="static/videos/skills/backhand_1.mp4" type="video/mp4"></video>
+                <p class="has-text-centered">Backhand demo 1</p>
+              </div>
+              <div class="video-card">
+                <video class="project-video" controls muted loop playsinline preload="metadata"><source src="static/videos/skills/backhand_2.mp4" type="video/mp4"></video>
+                <p class="has-text-centered">Backhand demo 2</p>
+              </div>
+              <div class="video-card">
+                <video class="project-video" controls muted loop playsinline preload="metadata"><source src="static/videos/skills/backhand_3.mp4" type="video/mp4"></video>
+                <p class="has-text-centered">Backhand demo 3</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="column is-one-third">
+            <div class="skill-group">
+              <h3 class="title is-4 has-text-centered">Jump Return</h3>
+              <div class="video-card">
+                <video class="project-video" controls muted loop playsinline preload="metadata"><source src="static/videos/skills/jump_1.mp4" type="video/mp4"></video>
+                <p class="has-text-centered">Jump-return demo 1</p>
+              </div>
+              <div class="video-card">
+                <video class="project-video" controls muted loop playsinline preload="metadata"><source src="static/videos/skills/jump_2.mp4" type="video/mp4"></video>
+                <p class="has-text-centered">Jump-return demo 2</p>
+              </div>
+              <div class="video-card">
+                <video class="project-video" controls muted loop playsinline preload="metadata"><source src="static/videos/skills/jump_3.mp4" type="video/mp4"></video>
+                <p class="has-text-centered">Jump-return demo 3</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hero is-light project-section" id="rallies">
+      <div class="container">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Human-Robot Rally Demonstrations</h2>
+            <p class="caption has-text-centered">
+              Selected examples of human-robot rallies, illustrating repeated shuttle interception and recovery.
+            </p>
+          </div>
+        </div>
+
+        <div class="columns is-variable is-4" style="margin-top: 1rem;">
+          <div class="column is-one-third">
+            <div class="rally-video-card">
+              <video class="project-video" controls muted playsinline preload="metadata"><source src="static/videos/rallies/human_robot_rally_1.mp4" type="video/mp4"></video>
+              <p class="caption has-text-centered">Rally clip 1</p>
+            </div>
+          </div>
+          <div class="column is-one-third">
+            <div class="rally-video-card">
+              <video class="project-video" controls muted playsinline preload="metadata"><source src="static/videos/rallies/human_robot_rally_2.mp4" type="video/mp4"></video>
+              <p class="caption has-text-centered">Rally clip 2</p>
+            </div>
+          </div>
+          <div class="column is-one-third">
+            <div class="rally-video-card">
+              <video class="project-video" controls muted playsinline preload="metadata"><source src="static/videos/rallies/human_robot_rally_3.mp4" type="video/mp4"></video>
+              <p class="caption has-text-centered">Rally clip 3</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section project-section" id="acknowledgements">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Acknowledgements</h2>
+            <img class="ack-image" src="static/images/acknowledgement.png" alt="Acknowledgements" loading="lazy">
+            <p class="caption has-text-centered">
+              This study was in part supported by the InnoHK initiative of the Innovation and Technology Commission of the Hong Kong Special Administrative Region Government via the Hong Kong Centre for Logistics Robotics. The authors thank Junhao Huang, Yueyang Wang, and Jiamu Qin for their assistance in collecting the badminton motion data.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
